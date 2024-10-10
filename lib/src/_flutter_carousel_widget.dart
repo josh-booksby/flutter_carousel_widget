@@ -210,6 +210,11 @@ class _FlutterCarouselState extends State<FlutterCarousel>
 
     // Periodic timer for auto-play
     return Timer.periodic(widget.options.autoPlayInterval, (_) {
+      if (!mounted) {
+        _clearTimer();
+        return;
+      }
+      
       final route = ModalRoute.of(context);
       if (route?.isCurrent == false) {
         return; // Pause auto-play if the route is not active
